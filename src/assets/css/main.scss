@@ -1,0 +1,168 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&family=Roboto:wght@400;500;700&display=swap");
+
+$blue: #1e86ff;
+$dark-blue: #334680;
+$black: #282538;
+$grey: #b9bdcf;
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 10px;
+  font-family: "Roboto", sans-serif;
+}
+
+body {
+  box-sizing: border-box;
+  background-color: #f6f7fb;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 12px;
+}
+.btn {
+  font-family: "Roboto", sans-serif;
+  padding: 14px 27px;
+  outline: none;
+  border: none;
+  border-radius: 4px;
+  font-size: 1.6rem;
+  line-height: 1.9rem;
+}
+
+.btn-blue {
+  color: white;
+  background-color: $blue;
+  transition: opacity 0.2s;
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+.checkbox {
+  display: flex;
+  align-items: center;
+  margin: 8px 0;
+
+  input {
+    width: 18px;
+    height: 18px;
+    margin-right: 12px;
+  }
+
+  label {
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;
+    font-size: 1.4rem;
+    line-height: 2.1rem;
+    color: $dark-blue;
+  }
+}
+
+// Home
+.header {
+  h1 {
+    font-family: "Poppins", sans-serif;
+    font-size: 2.4rem;
+    line-height: 3.6rem;
+    color: $black;
+
+    span {
+      font-weight: normal;
+    }
+  }
+}
+.searchForm {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: url("../img/backgroundImg.png");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  border-radius: 8px;
+  height: 138px;
+  margin: 0 auto;
+  margin-top: 32px;
+  padding: 0 18px;
+
+  input {
+    flex: 2;
+  }
+}
+.form-group {
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+  padding: 4px 5px 4px 17px;
+  height: 48px;
+  background-color: white;
+  border-radius: 4px;
+  max-width: 790px;
+
+  input {
+    font-family: "Roboto", sans-serif;
+    margin-left: 10px;
+    margin-right: 24px;
+    border: none;
+    background: transparent;
+
+    &::placeholder {
+      font-size: 1.2rem;
+      line-height: 1.4rem;
+      color: $grey;
+    }
+  }
+}
+
+.form-group-lg {
+  height: 55px;
+}
+
+// Home__content
+.content {
+  display: flex;
+  flex-direction: column;
+  margin-top: 30px;
+}
+
+.home__filters {
+  flex: 1;
+
+  .cities {
+    margin-top: 25px;
+  }
+}
+.home__jobs {
+  flex: 2;
+}
+.input-filters {
+  .form-group {
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.05);
+  }
+
+  label {
+    display: block;
+    font-size: 1.4rem;
+    text-transform: uppercase;
+    line-height: 2.1rem;
+    font-weight: bold;
+    color: $grey;
+    margin-top: 32px;
+    margin-bottom: 14px;
+  }
+}
+
+@media screen and (min-width: 767px) {
+  .content {
+    flex-direction: row;
+  }
+}
