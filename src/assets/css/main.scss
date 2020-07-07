@@ -67,6 +67,34 @@ body {
   }
 }
 
+.custom-label {
+  padding: 8px;
+  border: 1px solid $dark-blue;
+  border-radius: 4px;
+  align-self: start;
+  font-size: 1.2rem;
+  line-height: 1.4rem;
+  color: $dark-blue;
+  font-weight: bold;
+}
+
+// Test
+.fixed {
+  position: fixed;
+  background: white;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 300px;
+  padding: 24px;
+}
+
+.filters-open {
+  padding-left: 332px;
+}
+
+//End of test
+
 // Home
 .header {
   h1 {
@@ -112,6 +140,8 @@ body {
     font-family: "Roboto", sans-serif;
     margin-left: 10px;
     margin-right: 24px;
+    padding: 0 4px;
+    height: 32px;
     border: none;
     background: transparent;
 
@@ -119,6 +149,12 @@ body {
       font-size: 1.2rem;
       line-height: 1.4rem;
       color: $grey;
+    }
+
+    &:focus {
+      border: 1px solid $blue;
+      outline: none;
+      box-shadow: 0 0 4px #1e86ff94;
     }
   }
 }
@@ -142,6 +178,7 @@ body {
   }
 }
 .home__jobs {
+  margin-top: 24px;
   flex: 2;
 }
 .input-filters {
@@ -161,8 +198,79 @@ body {
   }
 }
 
+// Job Card
+.job {
+  display: flex;
+  align-items: center;
+  padding: 12px;
+  flex-direction: column;
+  background: #ffffff;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.05);
+  border-radius: 4px;
+  text-decoration: none;
+  margin-bottom: 24px;
+}
+.job__content {
+  width: 100%;
+  display: flex;
+  height: 150px;
+
+  .job__logo {
+    min-width: 90px;
+    width: 90px;
+    height: 90px;
+    border-radius: 4px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin-right: 16px;
+  }
+
+  .job__infos {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    .company {
+      font-size: 1.2rem;
+      line-height: 1.4rem;
+      color: $dark-blue;
+      font-weight: bold;
+    }
+
+    .job-title {
+      font-size: 1.6rem;
+      line-height: 1.9rem;
+      color: $dark-blue;
+    }
+  }
+}
+.job-meta,
+.job-location,
+.job-date {
+  display: flex;
+  align-items: center;
+}
+.job-date,
+.job-location {
+  font-size: 1.2rem;
+  line-height: 1.4rem;
+  color: $grey;
+
+  .icon {
+    margin-right: 8px;
+  }
+}
+.job-date {
+  margin-left: 24px;
+}
+
 @media screen and (min-width: 767px) {
   .content {
     flex-direction: row;
+  }
+  .home__jobs {
+    margin-top: 0;
+    margin-left: 32px;
   }
 }

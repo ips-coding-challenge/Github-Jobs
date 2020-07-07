@@ -11,7 +11,7 @@ const Filters = () => {
     <div className="home__filters">
       <div className="checkbox">
         <input type="checkbox" id="fulltime" />
-        <label htmlFor="fullTime">Full time</label>
+        <label htmlFor="fulltime">Full time</label>
       </div>
 
       <div className="input-filters">
@@ -34,6 +34,7 @@ const Filters = () => {
 
           <input
             type="text"
+            style={{ width: "100%" }}
             id="city"
             placeholder="City, state, zip code or country"
           />
@@ -43,8 +44,8 @@ const Filters = () => {
       <div className="cities">
         {cities.map((city) => (
           <div className="checkbox" key={city.id}>
-            <input type="checkbox" />
-            <label htmlFor="">{city.name}</label>
+            <input type="checkbox" id={city.id} />
+            <label htmlFor={city.id}>{city.name}</label>
           </div>
         ))}
       </div>
