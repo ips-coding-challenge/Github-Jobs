@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, cloneElement } from "react";
 
 import SearchForm from "../components/SearchForm";
 import Filters from "../components/Filters";
@@ -11,8 +11,10 @@ const Home = () => {
   const BASE_URL = "http://localhost:1337/jobs";
   const [location, setLocation] = useState("Paris");
   const [description, setDescription] = useState("python");
+  const [fulltime, setFulltime] = useState(false);
   const [page, setPage] = useState(1);
   const [jobs, setJobs] = useState([]);
+  const [filters, setFilters] = useState([]);
 
   const getJobs = async () => {
     try {
@@ -27,12 +29,27 @@ const Home = () => {
     }
   };
 
+  const addFilter = (filter) => {
+    console.log(`Called`, filter.type);
+    switch (filter.type) {
+      case "location":
+        setLocation(filter.value);
+      case "city":
+        setLocation(filter.value.name);
+      case "fulltime":
+        setFulltime(filter.value);
+      case "description":
+        setDescription(filter.value);
+    }
+  };
+
   useEffect(() => {
     getJobs();
   }, []);
 
+  // Just to try some stuff with the scroll and the filters position on lg screen
   useEffect(() => {
-    console.log(`Window innerwidth ${window.innerWidth}`);
+    // console.log(`Window innerwidth ${window.innerWidth}`);
     let listeners = {};
     if (window.innerWidth > 767) {
       listeners.scroll = scrollListener();
@@ -68,7 +85,7 @@ const Home = () => {
       </header>
 
       <div className="content">
-        <Filters />
+        <Filters addFilter={addFilter} />
         <Jobs jobs={jobs} />
       </div>
     </>

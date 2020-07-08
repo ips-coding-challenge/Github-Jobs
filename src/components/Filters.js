@@ -1,16 +1,53 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
-const Filters = () => {
-  const cities = [
+const Filters = ({ addFilter }) => {
+  const [fulltime, setFulltime] = useState(false);
+  const [selectedCity, setSelectedCity] = useState(null);
+  const [location, setLocation] = useState("");
+
+  const handleClick = () => {
+    setFulltime(!fulltime);
+    addFilter({ type: "fulltime", value: true });
+  };
+
+  const handleCity = (city) => {
+    if (selectedCity && city.id === selectedCity.id) {
+      setSelectedCity(null);
+      addFilter({ type: "city", value: null });
+    } else {
+      setSelectedCity(city);
+      addFilter({ type: "city", value: city });
+    }
+  };
+
+  const handleLocation = (e) => {
+    if (e.key === "Enter") {
+      setLocation(e.target.value);
+      addFilter({ type: "location", value: location });
+    }
+  };
+
+  let cities = [
     { id: 1, name: "London" },
     { id: 2, name: "Paris" },
-    { id: 3, name: "Berling" },
+    { id: 3, name: "Berlin" },
     { id: 4, name: "Madrid" },
   ];
+
+  useEffect(() => {
+    setSelectedCity(cities[0]);
+    addFilter({ type: "city", value: cities[0] });
+  }, []);
+
   return (
     <div className="home__filters">
       <div className="checkbox">
-        <input type="checkbox" id="fulltime" />
+        <input
+          type="checkbox"
+          id="fulltime"
+          checked={fulltime}
+          onChange={handleClick}
+        />
         <label htmlFor="fulltime">Full time</label>
       </div>
 
@@ -36,6 +73,9 @@ const Filters = () => {
             type="text"
             style={{ width: "100%" }}
             id="city"
+            value={location}
+            onChange={(e) => setLocation(e.target.value)}
+            onKeyDown={handleLocation}
             placeholder="City, state, zip code or country"
           />
         </div>
@@ -44,7 +84,12 @@ const Filters = () => {
       <div className="cities">
         {cities.map((city) => (
           <div className="checkbox" key={city.id}>
-            <input type="checkbox" id={city.id} />
+            <input
+              type="checkbox"
+              checked={selectedCity ? city.id === selectedCity.id : false}
+              id={city.id}
+              onChange={() => handleCity(city)}
+            />
             <label htmlFor={city.id}>{city.name}</label>
           </div>
         ))}
