@@ -1,8 +1,14 @@
 import React from "react";
+import { Link } from "@reach/router";
+import { formatDistance } from "date-fns";
 
 const Job = ({ job }) => {
+  const formattedDate = (date) => {
+    return formatDistance(new Date(date), new Date());
+  };
+
   return (
-    <a href={job.company_url} className="job">
+    <Link to={`job/${job.id}`} href={job.company_url} className="job">
       <div className="job__content">
         <div
           className="job__logo"
@@ -48,12 +54,14 @@ const Job = ({ job }) => {
                   />
                 </svg>
               </div>
-              <time dateTime={job.created_at}>{job.created_at}</time>
+              <time dateTime={job.created_at}>
+                {formattedDate(job.created_at)}
+              </time>
             </div>
           </div>
         </div>
       </div>
-    </a>
+    </Link>
   );
 };
 

@@ -1,31 +1,28 @@
 import React, { useEffect, useState, cloneElement } from "react";
 
+import Header from "../components/Header";
 import SearchForm from "../components/SearchForm";
 import Filters from "../components/Filters";
 import Jobs from "../components/Jobs";
-import axios from "axios";
-
-let cachedJobs = [];
+import { findAllJobs } from "../api/ApiService";
 
 const Home = () => {
-  const BASE_URL = "http://localhost:1337/jobs";
-  const [location, setLocation] = useState("Paris");
-  const [description, setDescription] = useState("python");
+  const [location, setLocation] = useState("New York");
+  const [description, setDescription] = useState("");
   const [fulltime, setFulltime] = useState(false);
-  const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState(false);
   const [jobs, setJobs] = useState([]);
-  const [filters, setFilters] = useState([]);
 
   const getJobs = async () => {
+    setLoading(true);
     try {
-      const response = await axios.get(BASE_URL, {
-        params: { location, description, page },
-      });
-      console.log(`Response`, response);
-      cachedJobs = response.data;
-      setJobs(response.data);
+      const data = await findAllJobs(description, location, fulltime);
+      console.log(`Data`, data);
+      setJobs(data);
+      setLoading(false);
     } catch (e) {
       console.log(`Error`, e);
+      setLoading(false);
     }
   };
 
@@ -34,59 +31,33 @@ const Home = () => {
     switch (filter.type) {
       case "location":
         setLocation(filter.value);
-      case "city":
-        setLocation(filter.value.name);
+        break;
       case "fulltime":
         setFulltime(filter.value);
+        break;
       case "description":
         setDescription(filter.value);
+        break;
     }
   };
 
   useEffect(() => {
     getJobs();
-  }, []);
-
-  // Just to try some stuff with the scroll and the filters position on lg screen
-  useEffect(() => {
-    // console.log(`Window innerwidth ${window.innerWidth}`);
-    let listeners = {};
-    if (window.innerWidth > 767) {
-      listeners.scroll = scrollListener();
-    }
-    return () => {
-      window.removeEventListener(listeners.scroll);
-    };
-  }, []);
-
-  const scrollListener = () => {
-    document.addEventListener("scroll", () => {
-      const filters = document.querySelector(".home__filters");
-      const jobs = document.querySelector(".home__jobs");
-
-      if (window.scrollY > 200) {
-        filters.classList.add("fixed");
-        jobs.classList.add("filters-open");
-      } else {
-        filters.classList.remove("fixed");
-        jobs.classList.remove("filters-open");
-      }
-    });
-  };
+  }, [location, description, fulltime]);
 
   return (
     <>
-      <header className="header">
-        <h1>
-          Github <span>Jobs</span>
-        </h1>
-
-        <SearchForm />
-      </header>
+      <Header>
+        <SearchForm addFilter={addFilter} />
+      </Header>
 
       <div className="content">
         <Filters addFilter={addFilter} />
-        <Jobs jobs={jobs} />
+        {loading && <div className="loader">Loading...</div>}
+        {!loading && jobs.length > 0 && <Jobs jobs={jobs} />}
+        {!loading && jobs.length === 0 && (
+          <div className="no-result">No result found...</div>
+        )}
       </div>
     </>
   );

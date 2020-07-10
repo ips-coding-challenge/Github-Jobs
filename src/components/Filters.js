@@ -11,27 +11,30 @@ const Filters = ({ addFilter }) => {
   };
 
   const handleCity = (city) => {
+    console.log(`City`, city);
+
     if (selectedCity && city.id === selectedCity.id) {
       setSelectedCity(null);
-      addFilter({ type: "city", value: null });
+      addFilter({ type: "location", value: "" });
     } else {
       setSelectedCity(city);
-      addFilter({ type: "city", value: city });
+      addFilter({ type: "location", value: city.name });
     }
   };
 
   const handleLocation = (e) => {
     if (e.key === "Enter") {
-      setLocation(e.target.value);
+      setSelectedCity(null);
+      // setLocation(e.target.value);
       addFilter({ type: "location", value: location });
     }
   };
 
   let cities = [
-    { id: 1, name: "London" },
-    { id: 2, name: "Paris" },
+    { id: 1, name: "New York" },
+    { id: 2, name: "San Francisco" },
     { id: 3, name: "Berlin" },
-    { id: 4, name: "Madrid" },
+    { id: 4, name: "London" },
   ];
 
   useEffect(() => {

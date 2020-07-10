@@ -1,6 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 
-const SearchForm = () => {
+const SearchForm = ({ addFilter }) => {
+  const [description, setDescription] = useState("");
+
+  const handleSearch = (e) => {
+    if (e.key === "Enter") {
+      addFilter({ type: "description", value: description });
+    }
+  };
+
   return (
     <div className="searchForm">
       <div className="form-group form-group-lg">
@@ -19,7 +27,13 @@ const SearchForm = () => {
           </svg>
         </div>
 
-        <input type="text" placeholder="Title, companies, expertise" />
+        <input
+          type="text"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+          placeholder="Title, companies, expertise"
+          onKeyDown={handleSearch}
+        />
         <button className="btn btn-blue">Search</button>
       </div>
     </div>
