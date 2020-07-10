@@ -85,6 +85,7 @@
       border-radius: 4px;
       object-fit: cover;
       margin-right: 12px;
+      box-shadow: 2px 3px 7px #00000045;
     }
     .meta {
       h4 {
@@ -111,6 +112,10 @@
 
     p {
       margin-bottom: 32px;
+    }
+
+    ul {
+      padding-left: 12px;
     }
   }
 }

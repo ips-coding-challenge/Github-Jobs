@@ -79,7 +79,9 @@ const Details = ({ jobId }) => {
                 </time>
               </div>
               <div className="company-details">
-                <img src={job.company_logo} alt="company logo" />
+                {job.company_logo && (
+                  <img src={job.company_logo} alt="company logo" />
+                )}
                 <div className="meta">
                   <h4>{job.company}</h4>
                   <div className="job-location">
